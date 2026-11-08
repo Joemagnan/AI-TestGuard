@@ -1,6 +1,13 @@
 """PARTIE VIII - Contrôles de performance rapides (le protocole complet est dans
-scripts/run_performance.py). Les seuils viennent de app/config.py."""
+scripts/run_performance.py). Les seuils viennent de app/config.py.
 
+Les seuils absolus sont vérifiés sur la machine de référence. Les serveurs de CI
+sont mutualisés et plus lents (anomalie A14 : P95 de 14,6 ms sur GitHub contre
+5,6 ms en local) : la CI fixe PERF_TOLERANCE_FACTOR=3 pour ne détecter que les
+régressions d'un ordre de grandeur, sans échecs aléatoires.
+"""
+
+import os
 import time
 import tracemalloc
 
@@ -9,6 +16,8 @@ import pandas as pd
 
 from app.config import MODEL_PATH, PERFORMANCE_CRITERIA
 from app.prediction import predict_proba
+
+TOLERANCE = float(os.getenv("PERF_TOLERANCE_FACTOR", "1"))
 
 
 def _p95_ms(func, repetitions=300, warmup=20):
@@ -25,7 +34,8 @@ def _p95_ms(func, repetitions=300, warmup=20):
 def test_single_prediction_latency_p95(sample_bundle, X_test):
     row = X_test.iloc[[0]]
     p95 = _p95_ms(lambda: predict_proba(sample_bundle, row))
-    assert p95 < PERFORMANCE_CRITERIA["single_p95_ms"], f"P95 = {p95:.2f} ms"
+    limit = PERFORMANCE_CRITERIA["single_p95_ms"] * TOLERANCE
+    assert p95 < limit, f"P95 = {p95:.2f} ms (limite {limit:.1f} ms)"
 
 
 def test_batch_throughput(sample_bundle, X_test):
@@ -33,7 +43,7 @@ def test_batch_throughput(sample_bundle, X_test):
     start = time.perf_counter()
     predict_proba(sample_bundle, batch)
     throughput = len(batch) / (time.perf_counter() - start)
-    assert throughput > PERFORMANCE_CRITERIA["batch_throughput_min"] * 10
+    assert throughput > PERFORMANCE_CRITERIA["batch_throughput_min"] * 10 / TOLERANCE
 
 
 def test_delivered_model_size():

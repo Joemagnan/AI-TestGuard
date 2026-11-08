@@ -56,6 +56,9 @@ jobs:
       - name: Installation
         run: pip install -r requirements.txt
       - name: Tests (hors tests longs) et couverture
+        env:
+          # serveurs mutualisés : seuils de latence x 3 (anomalie A14)
+          PERF_TOLERANCE_FACTOR: "3"
         run: >
           pytest -m "not slow"
           --cov=app --cov-report=term-missing --cov-report=xml --cov-report=html
