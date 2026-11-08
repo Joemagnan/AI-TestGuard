@@ -17,7 +17,7 @@ reproductibles, dans quelles conditions le modèle est acceptable**.
 | Test (56 746 transactions, 95 fraudes) | 72 fraudes détectées, 23 manquées, 33 fausses alertes |
 | Rappel / précision / FPR / PR-AUC | 0,758 / 0,686 / 0,058 % / 0,695 : **4 critères sur 4 atteints** |
 | Tests automatisés | 179 (178 en CI à chaque PR), couverture 98 % |
-| Anomalies | 13 enregistrées, dont 4 corrigées ou atténuées, 1 critique atténuée |
+| Anomalies | 13 enregistrées : 3 corrigées, 2 atténuées (dont la critique), 8 ouvertes ou documentées |
 | Décision | **apte à un pilote encadré** (sans blocage automatique), **non autorisé en production** |
 
 Détail : [rapport d'évaluation](reports/EVALUATION_ML.md),
