@@ -17,7 +17,7 @@ reproductibles, dans quelles conditions le modèle est acceptable**.
 | Test (56 746 transactions, 95 fraudes) | 72 fraudes détectées, 23 manquées, 33 fausses alertes |
 | Rappel / précision / FPR / PR-AUC | 0,758 / 0,686 / 0,058 % / 0,695 : **4 critères sur 4 atteints** |
 | Tests automatisés | 179 (178 en CI à chaque PR), couverture 98 % |
-| Anomalies | 14 enregistrées : 4 corrigées, 2 atténuées (dont la critique), 8 ouvertes ou documentées |
+| Anomalies | 15 enregistrées : 5 corrigées, 2 atténuées (dont la critique), 8 ouvertes ou documentées |
 | Décision | **apte à un pilote encadré** (sans blocage automatique), **non autorisé en production** |
 
 Détail : [rapport d'évaluation](reports/EVALUATION_ML.md),
@@ -88,7 +88,7 @@ uvicorn app.api:app --port 8000 --workers 4
 `.github/workflows/tests.yml` exécute Ruff, puis les 178 tests rapides avec la couverture
 (seuil 90 %), à chaque push et pull request vers `main`. La branche `main` est protégée :
 une pull request ne peut être fusionnée que si les deux contrôles réussissent. Le
-ré-entraînement complet (jeu récupéré depuis le miroir OpenML du jeu ULB) et la comparaison
+ré-entraînement complet (copie publique du fichier Kaggle, empreinte SHA-256 vérifiée) et la comparaison
 à la référence sont lancés manuellement ou chaque lundi.
 
 ## Livrables du sujet
