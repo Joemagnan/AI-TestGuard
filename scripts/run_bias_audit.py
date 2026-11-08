@@ -56,7 +56,14 @@ def main() -> int:
         )
     write_json("bias_audit.json", rows)
     table = md_table(
-        ["Segment", "Transactions", "Fraudes", "Rappel [IC 95 %]", "FPR [IC 95 %]", "Précision [IC 95 %]"],
+        [
+            "Segment",
+            "Transactions",
+            "Fraudes",
+            "Rappel [IC 95 %]",
+            "FPR [IC 95 %]",
+            "Précision [IC 95 %]",
+        ],
         [
             [
                 r["segment"],
