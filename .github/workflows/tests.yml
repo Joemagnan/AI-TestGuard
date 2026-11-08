@@ -2,6 +2,7 @@
 #
 #   push / pull request vers main  -> style (Ruff) + tests rapides + couverture
 #   manuel ou hebdomadaire          -> + ré-entraînement complet et non-régression
+#                                      (jeu identique au fichier Kaggle, SHA-256 vérifiée)
 #
 # Un échec de test, de style ou de couverture fait échouer le job : la pull
 # request est bloquée par la protection de la branche main.
@@ -92,8 +93,8 @@ jobs:
           cache-dependency-path: requirements.txt
       - name: Installation
         run: pip install -r requirements.txt
-      - name: Récupération du jeu complet (miroir public OpenML du jeu ULB)
-        run: python scripts/fetch_openml.py
+      - name: Récupération du jeu complet (copie publique, empreinte SHA-256 vérifiée)
+        run: python scripts/fetch_dataset.py
       - name: Ré-entraînement et comparaison à la référence figée
         run: pytest -m slow -v --junitxml=reports/tests/junit-slow.xml
       - name: Synthèse
