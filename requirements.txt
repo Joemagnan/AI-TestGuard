@@ -1,0 +1,21 @@
+# Versions figées pour la reproductibilité (Python 3.12)
+numpy==2.5.4
+pandas==3.1.1
+scipy==1.18.1
+scikit-learn==1.9.1
+joblib==1.6.0
+matplotlib==3.11.2
+psutil==7.2.2
+
+# API de scoring
+fastapi==0.162.2
+pydantic==2.14.3
+uvicorn==0.54.0
+python-multipart==0.0.33
+httpx==0.28.1
+
+# Tests et qualité
+pytest==9.2.0
+pytest-cov==7.1.0
+hypothesis==6.170.15
+ruff==0.17.4

@@ -1,0 +1,31 @@
+# Données complètes : téléchargées depuis Kaggle, jamais versionnées
+data/*.csv
+data/*.zip
+!data/sample/
+!data/sample/*.csv
+
+# Environnements et caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+.ipynb_checkpoints/
+
+# Rapports générés à chaque exécution des tests
+.coverage
+coverage.xml
+htmlcov/
+reports/tests/
+
+# Secrets et configuration locale
+.env
+.env.*
+*.pem
+*.key
+
+# Système
+.DS_Store
+Thumbs.db
