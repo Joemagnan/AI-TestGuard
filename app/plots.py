@@ -130,7 +130,7 @@ def plot_roc_pr(curves: dict, path: str | Path, title_suffix: str = "") -> Path:
         )
     ax_pr.set(xlabel="Rappel", ylabel="Précision", xlim=(0, 1), ylim=(0, 1.02))
     ax_pr.set_title(f"Courbe précision-rappel{title_suffix}")
-    ax_pr.legend(loc="lower left")
+    ax_pr.legend(loc="lower left", bbox_to_anchor=(0.0, 0.08))
     ax_roc.text(
         1.0,
         -0.2,
@@ -169,13 +169,13 @@ def plot_threshold_analysis(y_true, y_proba, selection: dict, path: str | Path) 
         limit = thresholds[infeasible].max()
         for ax in (ax1, ax2):
             ax.axvspan(thresholds.min(), limit, color=GRID, alpha=0.6, lw=0)
-        ax2.text(
+        ax1.text(
             limit,
-            max(cost) * 0.95,
-            f"  FPR > {rule['max_fpr']:.1%}\n  (interdit)",
+            0.5,
+            f"FPR > {rule['max_fpr']:.1%}\n(interdit) ",
             fontsize=8,
             color=TEXT_SECONDARY,
-            va="top",
+            va="center",
             ha="right",
         )
     for ax in (ax1, ax2):
@@ -185,7 +185,8 @@ def plot_threshold_analysis(y_true, y_proba, selection: dict, path: str | Path) 
     ax1.set(ylabel="Valeur", ylim=(0, 1.02))
     ax1.set_title("Précision et rappel selon le seuil (validation)")
     ax1.legend(loc="lower left")
-    ax2.set(ylabel=f"Coût attendu = {rule['cost_fn']:g} x FN + {rule['cost_fp']:g} x FP")
+    ax2.set_yscale("log")
+    ax2.set(ylabel=f"Coût = {rule['cost_fn']:g} x FN + {rule['cost_fp']:g} x FP (échelle log)")
     ax2.set_title("Coût attendu selon le seuil (validation)")
     ax2.annotate(
         f"seuil retenu = {selection['threshold']:.3f}",

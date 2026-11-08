@@ -1,0 +1,65 @@
+{
+  "version": "1.0.0",
+  "code_version": "6064d6f",
+  "model_name": "decision_tree",
+  "params": {
+    "max_depth": 8,
+    "min_samples_leaf": 20,
+    "class_weight": null
+  },
+  "time_encoding": "raw",
+  "threshold": 0.14814814814814814,
+  "threshold_rule": {
+    "cost_fn": 25.0,
+    "cost_fp": 1.0,
+    "max_fpr": 0.005
+  },
+  "seed": 42,
+  "data": {
+    "rows_before": 284807,
+    "duplicates_removed": 1081,
+    "frauds_removed": 19,
+    "conflicting_labels": 0,
+    "rows": 283726,
+    "frauds": 473,
+    "fraud_rate": 0.001667101358352777,
+    "fingerprint": "7ce7e350e2b9beb4d7e9a5aba0944460cc1237755a337cf9aaacd6e95ad56726",
+    "source_file": "creditcard.csv",
+    "source_sha256": "76274b691b16a6c49d3f159c883398e03ccd6d1ee12d9d8ee38f4b4b98551a89"
+  },
+  "split_sizes": {
+    "train": 170235,
+    "val": 56745,
+    "test": 56746
+  },
+  "split_frauds": {
+    "train": 284,
+    "val": 94,
+    "test": 95
+  },
+  "validation_fingerprint": "0fe32edb36d3c6d57e25c9a5870270b90ef7e4a040081d7a8951f9d951e5bb54",
+  "validation_metrics": {
+    "n": 56745,
+    "n_frauds": 94,
+    "tp": 83,
+    "tn": 56622,
+    "fp": 29,
+    "fn": 11,
+    "accuracy": 0.9992950920785972,
+    "precision": 0.7410714285714286,
+    "recall": 0.8829787234042553,
+    "f1": 0.8058252427184466,
+    "fpr": 0.000511906232899684,
+    "fnr": 0.11702127659574468,
+    "roc_auc": 0.9454937228577963,
+    "pr_auc": 0.8489538367793241,
+    "expected_cost": 304.0
+  },
+  "libraries": {
+    "python": "3.12.10",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "joblib": "1.6.0"
+  }
+}

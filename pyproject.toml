@@ -13,6 +13,10 @@ extend-exclude = ["notebooks"]
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
 
+[tool.ruff.lint.flake8-bugbear]
+# idiome FastAPI : File(...) dans la signature déclare le paramètre de requête
+extend-immutable-calls = ["fastapi.File"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]
@@ -21,11 +25,13 @@ markers = [
     "slow: tests longs (exécutés à la demande ou sur calendrier, pas à chaque PR)",
     "full_data: nécessite data/creditcard.csv (jeu Kaggle complet)",
 ]
-filterwarnings = ["error::FutureWarning"]
+filterwarnings = [
+    "error::FutureWarning",
+    "ignore:Using `httpx` with `starlette.testclient` is deprecated",
+]
 
 [tool.coverage.run]
 source = ["app"]
-omit = ["app/plots.py"]
 
 [tool.coverage.report]
 show_missing = true

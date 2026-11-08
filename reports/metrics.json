@@ -1,0 +1,387 @@
+{
+  "version": "1.0.0",
+  "selected_model": "decision_tree",
+  "threshold": 0.14814814814814814,
+  "threshold_selection": {
+    "threshold": 0.14814814814814814,
+    "expected_cost": 304.0,
+    "recall": 0.8829787234042553,
+    "precision": 0.7410714285714286,
+    "fpr": 0.000511906232899684,
+    "rule": {
+      "cost_fn": 25.0,
+      "cost_fp": 1.0,
+      "max_fpr": 0.005
+    }
+  },
+  "data": {
+    "rows_before": 284807,
+    "duplicates_removed": 1081,
+    "frauds_removed": 19,
+    "conflicting_labels": 0,
+    "rows": 283726,
+    "frauds": 473,
+    "fraud_rate": 0.001667101358352777,
+    "fingerprint": "7ce7e350e2b9beb4d7e9a5aba0944460cc1237755a337cf9aaacd6e95ad56726",
+    "source_file": "creditcard.csv",
+    "source_sha256": "76274b691b16a6c49d3f159c883398e03ccd6d1ee12d9d8ee38f4b4b98551a89"
+  },
+  "split_sizes": {
+    "train": 170235,
+    "val": 56745,
+    "test": 56746
+  },
+  "split_frauds": {
+    "train": 284,
+    "val": 94,
+    "test": 95
+  },
+  "grid_search": [
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 0.01,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8180346226206426,
+      "val_roc_auc": 0.9776432558137788
+    },
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.8075392233046818,
+      "val_roc_auc": 0.9800039209839116
+    },
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8184911369279602,
+      "val_roc_auc": 0.9740984084335707
+    },
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.8127883927139682,
+      "val_roc_auc": 0.9803572414451004
+    },
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 1.0,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8176643256480249,
+      "val_roc_auc": 0.9731174113093345
+    },
+    {
+      "model": "logistic_regression",
+      "params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.8126954286659267,
+      "val_roc_auc": 0.9803766773567311
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 4,
+        "min_samples_leaf": 1,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8285187832374876,
+      "val_roc_auc": 0.9307561377106638
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 4,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.09275202628350757,
+      "val_roc_auc": 0.9399518590308635
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8321109011050618,
+      "val_roc_auc": 0.941365798128669
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.09275202628350757,
+      "val_roc_auc": 0.9399518590308635
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 6,
+        "min_samples_leaf": 1,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.779088419191896,
+      "val_roc_auc": 0.8816649684499757
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 6,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.47942029177373174,
+      "val_roc_auc": 0.9330734241794759
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8456638782186277,
+      "val_roc_auc": 0.9453714737904384
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.48250833676614613,
+      "val_roc_auc": 0.9330614058379845
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 1,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.697330145452743,
+      "val_roc_auc": 0.8177393161638806
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 1,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.4934768558545482,
+      "val_roc_auc": 0.9243521456683079
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "val_pr_auc": 0.8489538367793241,
+      "val_roc_auc": 0.9454937228577963
+    },
+    {
+      "model": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "val_pr_auc": 0.7031163260216744,
+      "val_roc_auc": 0.9245665040560024
+    }
+  ],
+  "candidates": {
+    "logistic_regression": {
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "threshold": 0.019859754644812162,
+      "validation": {
+        "n": 56745,
+        "n_frauds": 94,
+        "tp": 84,
+        "tn": 56596,
+        "fp": 55,
+        "fn": 10,
+        "accuracy": 0.9988545246277205,
+        "precision": 0.60431654676259,
+        "recall": 0.8936170212765957,
+        "f1": 0.721030042918455,
+        "fpr": 0.000970856648602849,
+        "fnr": 0.10638297872340426,
+        "roc_auc": 0.9740984084335707,
+        "pr_auc": 0.8184911369279602,
+        "expected_cost": 305.0
+      },
+      "test": {
+        "n": 56746,
+        "n_frauds": 95,
+        "tp": 75,
+        "tn": 56598,
+        "fp": 53,
+        "fn": 20,
+        "accuracy": 0.9987135657138829,
+        "precision": 0.5859375,
+        "recall": 0.7894736842105263,
+        "f1": 0.6726457399103138,
+        "fpr": 0.0009355527704718364,
+        "fnr": 0.21052631578947367,
+        "roc_auc": 0.945999188010803,
+        "pr_auc": 0.6804285700635301
+      }
+    },
+    "decision_tree": {
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "threshold": 0.14814814814814814,
+      "validation": {
+        "n": 56745,
+        "n_frauds": 94,
+        "tp": 83,
+        "tn": 56622,
+        "fp": 29,
+        "fn": 11,
+        "accuracy": 0.9992950920785972,
+        "precision": 0.7410714285714286,
+        "recall": 0.8829787234042553,
+        "f1": 0.8058252427184466,
+        "fpr": 0.000511906232899684,
+        "fnr": 0.11702127659574468,
+        "roc_auc": 0.9454937228577963,
+        "pr_auc": 0.8489538367793241,
+        "expected_cost": 304.0
+      },
+      "test": {
+        "n": 56746,
+        "n_frauds": 95,
+        "tp": 72,
+        "tn": 56618,
+        "fp": 33,
+        "fn": 23,
+        "accuracy": 0.9990131463010609,
+        "precision": 0.6857142857142857,
+        "recall": 0.7578947368421053,
+        "f1": 0.7200000000000001,
+        "fpr": 0.0005825139891617095,
+        "fnr": 0.24210526315789474,
+        "roc_auc": 0.8924512876160499,
+        "pr_auc": 0.6948650404711706
+      }
+    }
+  },
+  "train_metrics_selected": {
+    "n": 170235,
+    "n_frauds": 284,
+    "tp": 239,
+    "tn": 169838,
+    "fp": 113,
+    "fn": 45,
+    "accuracy": 0.9990718712368197,
+    "precision": 0.6789772727272727,
+    "recall": 0.8415492957746479,
+    "f1": 0.7515723270440252,
+    "fpr": 0.0006648975292878536,
+    "fnr": 0.15845070422535212,
+    "roc_auc": 0.9510056999859362,
+    "pr_auc": 0.827132346908954
+  },
+  "test_metrics_selected": {
+    "n": 56746,
+    "n_frauds": 95,
+    "tp": 72,
+    "tn": 56618,
+    "fp": 33,
+    "fn": 23,
+    "accuracy": 0.9990131463010609,
+    "precision": 0.6857142857142857,
+    "recall": 0.7578947368421053,
+    "f1": 0.7200000000000001,
+    "fpr": 0.0005825139891617095,
+    "fnr": 0.24210526315789474,
+    "roc_auc": 0.8924512876160499,
+    "pr_auc": 0.6948650404711706
+  },
+  "test_confidence_intervals_95": {
+    "recall": [
+      0.6736842105263158,
+      0.8421052631578947
+    ],
+    "precision": [
+      0.6095031055900622,
+      0.7745098039215687
+    ],
+    "fpr": [
+      0.0003883426594411396,
+      0.0007943372579477855
+    ],
+    "pr_auc": [
+      0.6021795992442373,
+      0.7915886910358454
+    ]
+  },
+  "acceptance": {
+    "accepted": true,
+    "checks": [
+      {
+        "metric": "recall",
+        "value": 0.7578947368421053,
+        "min": 0.75,
+        "passed": true
+      },
+      {
+        "metric": "precision",
+        "value": 0.6857142857142857,
+        "min": 0.2,
+        "passed": true
+      },
+      {
+        "metric": "fpr",
+        "value": 0.0005825139891617095,
+        "max": 0.005,
+        "passed": true
+      },
+      {
+        "metric": "pr_auc",
+        "value": 0.6948650404711706,
+        "min": 0.6,
+        "passed": true
+      }
+    ]
+  },
+  "naive_all_normal_accuracy": 0.9983258731892997,
+  "libraries": {
+    "python": "3.12.10",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "joblib": "1.6.0"
+  },
+  "artifact_sha256": "61035b445605dec7767badf7704a214da8f99a2eec58e114ec4db2819929ff29",
+  "artifact_bytes": 18654
+}
