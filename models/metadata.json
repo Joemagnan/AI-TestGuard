@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "created_at": "2026-11-08T15:50:02+00:00",
-  "code_version": "6064d6f",
+  "created_at": "2026-11-08T16:18:23+00:00",
+  "code_version": "5345356-modifie",
   "model_name": "decision_tree",
   "params": {
     "max_depth": 8,
@@ -955,6 +955,6 @@
   },
   "threshold": 0.14814814814814814,
   "artifact": "fraud_model.joblib",
-  "artifact_sha256": "61035b445605dec7767badf7704a214da8f99a2eec58e114ec4db2819929ff29",
-  "artifact_bytes": 18654
+  "artifact_sha256": "3608dbd103900767732179687a0ccf5a3e5de2aa0676bc5bcd9c439780ac8656",
+  "artifact_bytes": 18662
 }

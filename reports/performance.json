@@ -1,0 +1,270 @@
+{
+  "environment": {
+    "os": "Windows 11 (10.0.26300)",
+    "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+    "physical_cores": 16,
+    "logical_cores": 22,
+    "ram_gb": 63.4,
+    "python": "3.12.10",
+    "scikit-learn": "1.9.1",
+    "numpy": "2.5.4",
+    "pandas": "3.1.1",
+    "joblib": "1.6.0"
+  },
+  "model_bytes": 18654,
+  "model_load_ms": 3.029699990293011,
+  "single_prediction_model_only": {
+    "n": 2000,
+    "mean_ms": 3.752921099876403,
+    "p50_ms": 3.6589500086847693,
+    "p95_ms": 4.3825500149978325,
+    "p99_ms": 5.58394999767188,
+    "max_ms": 34.31379998801276
+  },
+  "single_prediction_with_validation": {
+    "n": 2000,
+    "mean_ms": 4.848113150030258,
+    "p50_ms": 4.723300022305921,
+    "p95_ms": 5.61813498934498,
+    "p99_ms": 7.178405999147798,
+    "max_ms": 42.039699997985736
+  },
+  "batches": [
+    {
+      "size": 1,
+      "n": 20,
+      "mean_ms": 5.077065000659786,
+      "p50_ms": 4.839549990720116,
+      "p95_ms": 6.202200008556248,
+      "p99_ms": 7.504840018227695,
+      "max_ms": 7.830500020645559,
+      "throughput_per_s": 206.63078218377944
+    },
+    {
+      "size": 10,
+      "n": 20,
+      "mean_ms": 4.503754999313969,
+      "p50_ms": 4.563199996482581,
+      "p95_ms": 4.87774000648642,
+      "p99_ms": 4.933068007521797,
+      "max_ms": 4.946900007780641,
+      "throughput_per_s": 2191.4446019697207
+    },
+    {
+      "size": 100,
+      "n": 20,
+      "mean_ms": 4.5879400029662065,
+      "p50_ms": 4.513200008659624,
+      "p95_ms": 5.012890012585559,
+      "p99_ms": 5.832018012297338,
+      "max_ms": 6.036800012225285,
+      "throughput_per_s": 22157.227645157924
+    },
+    {
+      "size": 1000,
+      "n": 20,
+      "mean_ms": 4.992384997603949,
+      "p50_ms": 4.968149994965643,
+      "p95_ms": 5.429430000367574,
+      "p99_ms": 5.633566006436013,
+      "max_ms": 5.684600007953122,
+      "throughput_per_s": 201282.16761034317
+    },
+    {
+      "size": 10000,
+      "n": 20,
+      "mean_ms": 9.869104999233969,
+      "p50_ms": 9.881199992378242,
+      "p95_ms": 10.382189990195911,
+      "p99_ms": 10.654118003731128,
+      "max_ms": 10.722100007114932,
+      "throughput_per_s": 1012022.8320156856
+    },
+    {
+      "size": 56746,
+      "n": 5,
+      "mean_ms": 34.26527999108657,
+      "p50_ms": 34.332499984884635,
+      "p95_ms": 34.88657999550924,
+      "p99_ms": 34.893955995794386,
+      "max_ms": 34.89579999586567,
+      "throughput_per_s": 1652836.2346168563
+    }
+  ],
+  "memory_separate_process": {
+    "python_mb": 17.85546875,
+    "after_imports_mb": 145.13671875,
+    "after_model_load_mb": 146.47265625,
+    "after_full_test_scoring_mb": 163.13671875
+  },
+  "api": {
+    "workers": 1,
+    "paced_target_load": {
+      "n": 3300,
+      "mean_ms": 2673.3930374305537,
+      "p50_ms": 2739.7222257277463,
+      "p95_ms": 4860.422322695375,
+      "p99_ms": 5018.299572510587,
+      "max_ms": 5132.048448460409,
+      "target_rps": 165.0,
+      "achieved_rps": 132.16621434594626,
+      "duration_s": 20.0,
+      "error_rate": 0.0
+    },
+    "sequential_predict": {
+      "n": 2000,
+      "mean_ms": 7.758613650119514,
+      "p50_ms": 7.650300016393885,
+      "p95_ms": 8.659899992926512,
+      "p99_ms": 10.751902995398268,
+      "max_ms": 46.34619998978451
+    },
+    "batch_100_predict": {
+      "n": 200,
+      "mean_ms": 10.939743499766337,
+      "p50_ms": 10.835200009751134,
+      "p95_ms": 11.73658500192687,
+      "p99_ms": 12.287673000828343,
+      "max_ms": 18.40760000050068
+    },
+    "concurrent_predict": {
+      "n": 4000,
+      "mean_ms": 120.44877364988497,
+      "p50_ms": 118.65485001180787,
+      "p95_ms": 150.82178000011479,
+      "p99_ms": 169.27609899459628,
+      "max_ms": 201.84059999883175,
+      "clients": 16,
+      "requests": 4000,
+      "throughput_rps": 124.73482701091159,
+      "error_rate": 0.0
+    },
+    "server_rss_mb": 180.28125
+  },
+  "api_4_workers": {
+    "workers": 4,
+    "paced_target_load": {
+      "n": 3300,
+      "mean_ms": 27.53972055096793,
+      "p50_ms": 10.266083292663097,
+      "p95_ms": 18.103547391365282,
+      "p99_ms": 56.89177203836073,
+      "max_ms": 10008.462163590593,
+      "target_rps": 165.0,
+      "achieved_rps": 164.9727423787454,
+      "duration_s": 20.0,
+      "error_rate": 0.0015151515151515152
+    },
+    "sequential_predict": {
+      "n": 2000,
+      "mean_ms": 7.954534750446328,
+      "p50_ms": 7.831300012185238,
+      "p95_ms": 9.06005998258479,
+      "p99_ms": 11.325183000299148,
+      "max_ms": 44.88849997869693
+    },
+    "batch_100_predict": {
+      "n": 200,
+      "mean_ms": 10.68298949918244,
+      "p50_ms": 10.708099987823516,
+      "p95_ms": 11.566545021196362,
+      "p99_ms": 11.963357980712315,
+      "max_ms": 13.2484000059776
+    },
+    "concurrent_predict": {
+      "n": 4000,
+      "mean_ms": 33.98794479981734,
+      "p50_ms": 35.946749994764104,
+      "p95_ms": 47.792704998573754,
+      "p99_ms": 56.92079299828034,
+      "max_ms": 181.20390002150089,
+      "clients": 16,
+      "requests": 4000,
+      "throughput_rps": 337.9224782856216,
+      "error_rate": 0.0
+    },
+    "server_rss_mb": 712.828125
+  },
+  "criteria": [
+    {
+      "check": "Latence P95 d'une prédiction (modèle + validation)",
+      "value": 5.61813498934498,
+      "operator": "<=",
+      "limit": 10.0,
+      "unit": "ms",
+      "passed": true
+    },
+    {
+      "check": "Latence P95 d'une requête API /predict",
+      "value": 8.659899992926512,
+      "operator": "<=",
+      "limit": 50.0,
+      "unit": "ms",
+      "passed": true
+    },
+    {
+      "check": "Débit max API, 1 processus (saturation)",
+      "value": 124.73482701091159,
+      "operator": ">=",
+      "limit": 165.0,
+      "unit": "req/s",
+      "passed": false
+    },
+    {
+      "check": "Débit max API, 4 processus (saturation)",
+      "value": 337.9224782856216,
+      "operator": ">=",
+      "limit": 165.0,
+      "unit": "req/s",
+      "passed": true
+    },
+    {
+      "check": "P95 API à 165 req/s imposées, 1 processus",
+      "value": 4860.422322695375,
+      "operator": "<=",
+      "limit": 50.0,
+      "unit": "ms",
+      "passed": false
+    },
+    {
+      "check": "P95 API à 165 req/s imposées, 4 processus",
+      "value": 18.103547391365282,
+      "operator": "<=",
+      "limit": 50.0,
+      "unit": "ms",
+      "passed": true
+    },
+    {
+      "check": "Débit par lot",
+      "value": 1652836.2346168563,
+      "operator": ">=",
+      "limit": 165.0,
+      "unit": "préd./s",
+      "passed": true
+    },
+    {
+      "check": "Taille du modèle",
+      "value": 0.017789840698242188,
+      "operator": "<=",
+      "limit": 10.0,
+      "unit": "Mo",
+      "passed": true
+    },
+    {
+      "check": "Mémoire du service, 1 processus (RSS)",
+      "value": 180.28125,
+      "operator": "<=",
+      "limit": 500.0,
+      "unit": "Mo",
+      "passed": true
+    },
+    {
+      "check": "Mémoire du service, 4 processus (RSS)",
+      "value": 712.828125,
+      "operator": "<=",
+      "limit": 2000.0,
+      "unit": "Mo",
+      "passed": true
+    }
+  ]
+}

@@ -382,6 +382,6 @@
     "pandas": "3.1.1",
     "joblib": "1.6.0"
   },
-  "artifact_sha256": "61035b445605dec7767badf7704a214da8f99a2eec58e114ec4db2819929ff29",
-  "artifact_bytes": 18654
+  "artifact_sha256": "3608dbd103900767732179687a0ccf5a3e5de2aa0676bc5bcd9c439780ac8656",
+  "artifact_bytes": 18662
 }

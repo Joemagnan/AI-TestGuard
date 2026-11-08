@@ -147,7 +147,11 @@ def plot_threshold_analysis(y_true, y_proba, selection: dict, path: str | Path) 
     """Précision / rappel puis coût attendu selon le seuil (jeu de validation)."""
     y_true = np.asarray(y_true)
     proba = np.asarray(y_proba)
-    thresholds = np.unique(np.quantile(proba, np.linspace(0.90, 1.0, 400)))
+    # seuils réellement atteignables : les valeurs de probabilité observées (un arbre
+    # n'en produit que quelques centaines) ; échantillonnage sans interpolation sinon
+    thresholds = np.unique(proba[proba > 0])
+    if len(thresholds) > 2000:
+        thresholds = np.unique(np.quantile(thresholds, np.linspace(0, 1, 2000), method="lower"))
     precision, recall, cost, fpr = [], [], [], []
     rule = selection["rule"]
     negatives = np.sum(y_true == 0)
@@ -161,9 +165,10 @@ def plot_threshold_analysis(y_true, y_proba, selection: dict, path: str | Path) 
         cost.append(rule["cost_fn"] * fn + rule["cost_fp"] * fp)
         fpr.append(fp / negatives)
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4))
-    ax1.plot(thresholds, recall, color=SERIES[0], lw=2, label="Rappel")
-    ax1.plot(thresholds, precision, color=SERIES[1], lw=2, label="Précision")
-    ax2.plot(thresholds, cost, color=SERIES[0], lw=2)
+    steps = {"drawstyle": "steps-post", "lw": 2}
+    ax1.plot(thresholds, recall, color=SERIES[0], label="Rappel", **steps)
+    ax1.plot(thresholds, precision, color=SERIES[1], label="Précision", **steps)
+    ax2.plot(thresholds, cost, color=SERIES[0], **steps)
     infeasible = np.array(fpr) > rule["max_fpr"]
     if infeasible.any():
         limit = thresholds[infeasible].max()

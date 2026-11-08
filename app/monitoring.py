@@ -75,9 +75,39 @@ def drift_report(X_new: pd.DataFrame, profile: dict) -> dict:
     return {"status": overall, "top": [name for name, _ in ranked[:5]], "features": features}
 
 
-def transaction_alerts(X: pd.DataFrame, profile: dict) -> list[list[str]]:
+def critical_features(pipeline, k: int = 3) -> list[str]:
+    """Les ``k`` variables d'entrée dont dépend le plus le modèle.
+
+    Importances pour un arbre, |coefficient| pour un modèle linéaire (variables
+    standardisées). Sert à repérer les transactions dont une variable critique a dû
+    être imputée (anomalie A02 : l'imputation masque alors la fraude).
+    """
+    model = pipeline.named_steps["model"]
+    names = pipeline.named_steps["preprocess"].get_feature_names_out()
+    if hasattr(model, "feature_importances_"):
+        weights = np.asarray(model.feature_importances_)
+    elif hasattr(model, "coef_"):
+        weights = np.abs(np.ravel(model.coef_))
+    else:
+        return []
+    ranked = [str(names[i]) for i in np.argsort(-weights)]
+    inputs = []
+    for name in ranked:
+        source = "Time" if name.startswith("Time") else name
+        if source in FEATURES and source not in inputs:
+            inputs.append(source)
+        if len(inputs) == k:
+            break
+    return inputs
+
+
+def transaction_alerts(
+    X: pd.DataFrame, profile: dict, critical: list[str] | None = None
+) -> list[list[str]]:
     """Alertes par transaction (sans bloquer la prédiction).
 
+    * ``variable_critique_manquante`` : une variable de ``critical`` a été imputée ;
+      la décision doit être confiée à un analyste (revue manuelle) ;
     * ``valeurs_manquantes`` : au moins une variable absente ou infinie (imputée) ;
     * ``montant_hors_domaine`` : montant supérieur au maximum vu à l'entraînement ;
     * ``temps_hors_domaine`` : ``Time`` au-delà de la période d'entraînement
@@ -93,10 +123,15 @@ def transaction_alerts(X: pd.DataFrame, profile: dict) -> list[list[str]]:
     highs = np.array([profile[c]["max"] for c in pca_cols])
     pca = clean[pca_cols].to_numpy()
     extreme = ((pca < lows) | (pca > highs)).any(axis=1)
+    critical_missing = (
+        clean[critical].isna().any(axis=1).to_numpy() if critical else np.zeros(len(clean), bool)
+    )
 
     alerts = []
     for i in range(len(clean)):
         row = []
+        if critical_missing[i]:
+            row.append("variable_critique_manquante")
         if missing[i]:
             row.append("valeurs_manquantes")
         if amount_out[i]:
@@ -109,10 +144,10 @@ def transaction_alerts(X: pd.DataFrame, profile: dict) -> list[list[str]]:
     return alerts
 
 
-def batch_quality_report(X: pd.DataFrame, profile: dict) -> dict:
+def batch_quality_report(X: pd.DataFrame, profile: dict, critical: list[str] | None = None) -> dict:
     """Synthèse de qualité d'un lot : taux de lignes incomplètes et alertes."""
     clean = clean_features(X)
-    alerts = transaction_alerts(clean, profile)
+    alerts = transaction_alerts(clean, profile, critical)
     missing_rate = float(clean.isna().any(axis=1).mean())
     counts = {}
     for row in alerts:

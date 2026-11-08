@@ -118,6 +118,15 @@ def test_csv_with_missing_values_is_treated_and_flagged(client):
     assert body["quality"]["alert_counts"]["valeurs_manquantes"] == 5
 
 
+def test_csv_with_missing_critical_feature_is_sent_to_manual_review(client):
+    critical = api.STATE["critical"][0]
+    frame = load_dataset(SAMPLE_DATA_PATH).head(10)
+    frame.loc[:1, critical] = None
+    content = frame.to_csv(index=False).encode("utf-8")
+    body = client.post("/predict/file", files={"file": ("lot.csv", content, "text/csv")}).json()
+    assert body["quality"]["alert_counts"]["variable_critique_manquante"] == 2
+
+
 @pytest.mark.parametrize(
     "filename,content,status",
     [

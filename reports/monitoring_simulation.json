@@ -1,0 +1,163 @@
+{
+  "chronological_windows_without_incident": [
+    {
+      "window": 1,
+      "hours": "0.0 h - 12.0 h",
+      "psi_time": 10.52869,
+      "top_other_feature": "V1",
+      "psi_top_other": 2.411526,
+      "status": "alerte"
+    },
+    {
+      "window": 2,
+      "hours": "12.0 h - 18.0 h",
+      "psi_time": 9.104848,
+      "top_other_feature": "V1",
+      "psi_top_other": 2.394518,
+      "status": "alerte"
+    },
+    {
+      "window": 3,
+      "hours": "18.0 h - 23.5 h",
+      "psi_time": 10.51292,
+      "top_other_feature": "V1",
+      "psi_top_other": 2.406742,
+      "status": "alerte"
+    },
+    {
+      "window": 4,
+      "hours": "23.5 h - 35.6 h",
+      "psi_time": 9.423011,
+      "top_other_feature": "V1",
+      "psi_top_other": 0.35472,
+      "status": "alerte"
+    },
+    {
+      "window": 5,
+      "hours": "35.6 h - 41.3 h",
+      "psi_time": 9.105293,
+      "top_other_feature": "V1",
+      "psi_top_other": 0.483775,
+      "status": "alerte"
+    },
+    {
+      "window": 6,
+      "hours": "41.3 h - 48.0 h",
+      "psi_time": 10.516657,
+      "top_other_feature": "V1",
+      "psi_top_other": 0.518158,
+      "status": "alerte"
+    }
+  ],
+  "expected_flag_rate": 0.001973742179927747,
+  "critical_features": [
+    "V17",
+    "V10",
+    "V14"
+  ],
+  "windows": [
+    {
+      "window": 1,
+      "incident": "aucun",
+      "transactions": 9458,
+      "flag_rate": 0.0017974201733981815,
+      "flag_ratio": 0.9106661405310698,
+      "drift_status": "stable",
+      "max_psi": 0.001811,
+      "missing_rate": 0.0,
+      "alerts_without_labels": [
+        "aucune"
+      ],
+      "labels_frauds": 19,
+      "labels_recall": 0.6842105263157895,
+      "labels_precision": 0.7647058823529411,
+      "labels_fpr": 0.00042377370484161455
+    },
+    {
+      "window": 2,
+      "incident": "aucun",
+      "transactions": 9458,
+      "flag_rate": 0.002114611968703743,
+      "flag_ratio": 1.0713719300365525,
+      "drift_status": "stable",
+      "max_psi": 0.002513,
+      "missing_rate": 0.0,
+      "alerts_without_labels": [
+        "aucune"
+      ],
+      "labels_frauds": 18,
+      "labels_recall": 0.8333333333333334,
+      "labels_precision": 0.75,
+      "labels_fpr": 0.0005296610169491525
+    },
+    {
+      "window": 3,
+      "incident": "aucun",
+      "transactions": 9458,
+      "flag_rate": 0.0015859589765278071,
+      "flag_ratio": 0.8035289475274144,
+      "drift_status": "stable",
+      "max_psi": 0.001642,
+      "missing_rate": 0.0,
+      "alerts_without_labels": [
+        "aucune"
+      ],
+      "labels_frauds": 8,
+      "labels_recall": 0.875,
+      "labels_precision": 0.4666666666666667,
+      "labels_fpr": 0.0008465608465608466
+    },
+    {
+      "window": 4,
+      "incident": "dérive des données : montants x 3",
+      "transactions": 9458,
+      "flag_rate": 0.0011630365827870585,
+      "flag_ratio": 0.5892545615201039,
+      "drift_status": "alerte",
+      "max_psi": 0.406993,
+      "missing_rate": 0.0,
+      "alerts_without_labels": [
+        "dérive alerte (Amount, V7)"
+      ],
+      "labels_frauds": 10,
+      "labels_recall": 0.7,
+      "labels_precision": 0.6363636363636364,
+      "labels_fpr": 0.0004233700254022015
+    },
+    {
+      "window": 5,
+      "incident": "panne amont : V17, V10, V14 absents (5 % des lignes)",
+      "transactions": 9457,
+      "flag_rate": 0.002114835571534313,
+      "flag_ratio": 1.0714852188099517,
+      "drift_status": "stable",
+      "max_psi": 0.003092,
+      "missing_rate": 0.04906418525959606,
+      "alerts_without_labels": [
+        "données manquantes 4.9%",
+        "464 revues manuelles"
+      ],
+      "labels_frauds": 25,
+      "labels_recall": 0.64,
+      "labels_precision": 0.8,
+      "labels_fpr": 0.00042408821034775233
+    },
+    {
+      "window": 6,
+      "incident": "dérive de concept : fraudes déguisées",
+      "transactions": 9457,
+      "flag_rate": 0.0008459342286137253,
+      "flag_ratio": 0.42859408752398076,
+      "drift_status": "stable",
+      "max_psi": 0.002462,
+      "missing_rate": 0.0,
+      "alerts_without_labels": [
+        "taux signalé x 0.43"
+      ],
+      "labels_frauds": 15,
+      "labels_recall": 0.0,
+      "labels_precision": 0.0,
+      "labels_fpr": 0.0008472781190425757
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "baseline": {
+    "version": "1.0.0",
+    "code_version": "6064d6f",
+    "validation_metrics": {
+      "recall": 0.8829787234042553,
+      "precision": 0.7410714285714286,
+      "fpr": 0.000511906232899684,
+      "pr_auc": 0.8489538367793241,
+      "tp": 83,
+      "fp": 29,
+      "fn": 11,
+      "expected_cost": 304.0
+    },
+    "threshold": 0.14814814814814814
+  },
+  "tolerances": {
+    "pr_auc": 0.02,
+    "recall": 0.03,
+    "precision": 0.05,
+    "fpr": 0.001
+  },
+  "candidates": [
+    {
+      "version": "1.1.0-a",
+      "change": "Time encodé en heure de la journée (sin, cos) au lieu des secondes brutes",
+      "model_name": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "time_encoding": "cyclic",
+      "threshold": 0.17857142857142858,
+      "validation_metrics": {
+        "recall": 0.8829787234042553,
+        "precision": 0.8058252427184466,
+        "fpr": 0.0003530387813101269,
+        "pr_auc": 0.8424438114959454,
+        "tp": 83,
+        "fp": 20,
+        "fn": 11,
+        "expected_cost": 295.0
+      },
+      "comparison": {
+        "decision": "accepter",
+        "checks": [
+          {
+            "metric": "pr_auc",
+            "baseline": 0.8489538367793241,
+            "candidate": 0.8424438114959454,
+            "delta": -0.00651002528337874,
+            "degradation": 0.00651002528337874,
+            "tolerance": 0.02,
+            "status": "ok"
+          },
+          {
+            "metric": "recall",
+            "baseline": 0.8829787234042553,
+            "candidate": 0.8829787234042553,
+            "delta": 0.0,
+            "degradation": 0.0,
+            "tolerance": 0.03,
+            "status": "ok"
+          },
+          {
+            "metric": "precision",
+            "baseline": 0.7410714285714286,
+            "candidate": 0.8058252427184466,
+            "delta": 0.06475381414701797,
+            "degradation": -0.06475381414701797,
+            "tolerance": 0.05,
+            "status": "ok"
+          },
+          {
+            "metric": "fpr",
+            "baseline": 0.000511906232899684,
+            "candidate": 0.0003530387813101269,
+            "delta": -0.00015886745158955713,
+            "degradation": -0.00015886745158955713,
+            "tolerance": 0.001,
+            "status": "ok"
+          }
+        ],
+        "reasons": [],
+        "notes": []
+      }
+    },
+    {
+      "version": "1.1.0-b",
+      "change": "Régression logistique (C = 0,1), deuxième modèle de la comparaison",
+      "model_name": "logistic_regression",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "time_encoding": "raw",
+      "threshold": 0.019859754644812162,
+      "validation_metrics": {
+        "recall": 0.8936170212765957,
+        "precision": 0.60431654676259,
+        "fpr": 0.000970856648602849,
+        "pr_auc": 0.8184911369279602,
+        "tp": 84,
+        "fp": 55,
+        "fn": 10,
+        "expected_cost": 305.0
+      },
+      "comparison": {
+        "decision": "rejeter",
+        "checks": [
+          {
+            "metric": "pr_auc",
+            "baseline": 0.8489538367793241,
+            "candidate": 0.8184911369279602,
+            "delta": -0.03046269985136396,
+            "degradation": 0.03046269985136396,
+            "tolerance": 0.02,
+            "status": "regression"
+          },
+          {
+            "metric": "recall",
+            "baseline": 0.8829787234042553,
+            "candidate": 0.8936170212765957,
+            "delta": 0.010638297872340385,
+            "degradation": -0.010638297872340385,
+            "tolerance": 0.03,
+            "status": "ok"
+          },
+          {
+            "metric": "precision",
+            "baseline": 0.7410714285714286,
+            "candidate": 0.60431654676259,
+            "delta": -0.13675488180883866,
+            "degradation": 0.13675488180883866,
+            "tolerance": 0.05,
+            "status": "regression"
+          },
+          {
+            "metric": "fpr",
+            "baseline": 0.000511906232899684,
+            "candidate": 0.000970856648602849,
+            "delta": 0.000458950415703165,
+            "degradation": 0.000458950415703165,
+            "tolerance": 0.001,
+            "status": "ok"
+          }
+        ],
+        "reasons": [
+          "pr_auc : dégradation de 0.0305 (tolérance 0.02).",
+          "precision : dégradation de 0.1368 (tolérance 0.05)."
+        ],
+        "notes": []
+      }
+    },
+    {
+      "version": "1.1.0-c",
+      "change": "Arbre moins profond (profondeur 3) pour simplifier le modèle",
+      "model_name": "decision_tree",
+      "params": {
+        "max_depth": 3,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "time_encoding": "raw",
+      "threshold": 0.17777777777777778,
+      "validation_metrics": {
+        "recall": 0.8829787234042553,
+        "precision": 0.6287878787878788,
+        "fpr": 0.000864945014209811,
+        "pr_auc": 0.7684676334481058,
+        "tp": 83,
+        "fp": 49,
+        "fn": 11,
+        "expected_cost": 324.0
+      },
+      "comparison": {
+        "decision": "rejeter",
+        "checks": [
+          {
+            "metric": "pr_auc",
+            "baseline": 0.8489538367793241,
+            "candidate": 0.7684676334481058,
+            "delta": -0.08048620333121836,
+            "degradation": 0.08048620333121836,
+            "tolerance": 0.02,
+            "status": "regression"
+          },
+          {
+            "metric": "recall",
+            "baseline": 0.8829787234042553,
+            "candidate": 0.8829787234042553,
+            "delta": 0.0,
+            "degradation": 0.0,
+            "tolerance": 0.03,
+            "status": "ok"
+          },
+          {
+            "metric": "precision",
+            "baseline": 0.7410714285714286,
+            "candidate": 0.6287878787878788,
+            "delta": -0.11228354978354982,
+            "degradation": 0.11228354978354982,
+            "tolerance": 0.05,
+            "status": "regression"
+          },
+          {
+            "metric": "fpr",
+            "baseline": 0.000511906232899684,
+            "candidate": 0.000864945014209811,
+            "delta": 0.0003530387813101269,
+            "degradation": 0.0003530387813101269,
+            "tolerance": 0.001,
+            "status": "ok"
+          }
+        ],
+        "reasons": [
+          "pr_auc : dégradation de 0.0805 (tolérance 0.02).",
+          "precision : dégradation de 0.1123 (tolérance 0.05)."
+        ],
+        "notes": []
+      }
+    },
+    {
+      "version": "1.1.0-d",
+      "change": "Règle de seuil modifiée : coût FN = coût FP (au lieu de 25 pour 1)",
+      "model_name": "decision_tree",
+      "params": {
+        "max_depth": 8,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "time_encoding": "raw",
+      "cost_fn": 1.0,
+      "threshold": 0.6363636363636364,
+      "validation_metrics": {
+        "recall": 0.8297872340425532,
+        "precision": 0.8863636363636364,
+        "fpr": 0.00017651939065506346,
+        "pr_auc": 0.8489538367793241,
+        "tp": 78,
+        "fp": 10,
+        "fn": 16,
+        "expected_cost": 26.0
+      },
+      "comparison": {
+        "decision": "rejeter",
+        "checks": [
+          {
+            "metric": "pr_auc",
+            "baseline": 0.8489538367793241,
+            "candidate": 0.8489538367793241,
+            "delta": 0.0,
+            "degradation": 0.0,
+            "tolerance": 0.02,
+            "status": "ok"
+          },
+          {
+            "metric": "recall",
+            "baseline": 0.8829787234042553,
+            "candidate": 0.8297872340425532,
+            "delta": -0.05319148936170215,
+            "degradation": 0.05319148936170215,
+            "tolerance": 0.03,
+            "status": "regression"
+          },
+          {
+            "metric": "precision",
+            "baseline": 0.7410714285714286,
+            "candidate": 0.8863636363636364,
+            "delta": 0.14529220779220775,
+            "degradation": -0.14529220779220775,
+            "tolerance": 0.05,
+            "status": "ok"
+          },
+          {
+            "metric": "fpr",
+            "baseline": 0.000511906232899684,
+            "candidate": 0.00017651939065506346,
+            "delta": -0.0003353868422446206,
+            "degradation": -0.0003353868422446206,
+            "tolerance": 0.001,
+            "status": "ok"
+          }
+        ],
+        "reasons": [
+          "recall : dégradation de 0.0532 (tolérance 0.03)."
+        ],
+        "notes": []
+      }
+    }
+  ]
+}

@@ -34,7 +34,7 @@ from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, create_model
 
 from app.config import MODEL_PATH, PCA_FEATURES
-from app.monitoring import batch_quality_report, transaction_alerts
+from app.monitoring import batch_quality_report, critical_features, transaction_alerts
 from app.prediction import ModelLoadingError, load_model, predict_fraud
 from app.preprocessing import DataValidationError
 
@@ -72,13 +72,14 @@ class Prediction(BaseModel):
     alerts: list[str]
 
 
-STATE: dict = {"bundle": None, "error": None}
+STATE: dict = {"bundle": None, "error": None, "critical": []}
 
 
 def load_state(model_path: str | Path | None = None) -> None:
     path = Path(model_path or os.getenv("MODEL_PATH", MODEL_PATH))
     try:
         STATE["bundle"], STATE["error"] = load_model(path), None
+        STATE["critical"] = critical_features(STATE["bundle"]["pipeline"])
     except ModelLoadingError as exc:
         STATE["bundle"], STATE["error"] = None, str(exc)
         logger.error(json.dumps({"event": "model_loading_failed", "error": str(exc)}))
@@ -156,7 +157,11 @@ def _score(frame: pd.DataFrame, request: Request) -> tuple[pd.DataFrame, list[li
     except DataValidationError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
     profile = bundle["metadata"].get("reference_profile")
-    alerts = transaction_alerts(frame, profile) if profile else [[] for _ in range(len(frame))]
+    alerts = (
+        transaction_alerts(frame, profile, STATE["critical"])
+        if profile
+        else [[] for _ in range(len(frame))]
+    )
     request.state.log.update(
         {
             "model_version": bundle["metadata"].get("version"),
@@ -238,7 +243,7 @@ async def predict_file(request: Request, file: UploadFile = File(...)):
         raise HTTPException(status_code=413, detail="Trop de lignes (10 000 maximum).")
     result, _alerts, bundle = _score(frame, request)
     profile = bundle["metadata"].get("reference_profile")
-    quality = batch_quality_report(frame, profile) if profile else {}
+    quality = batch_quality_report(frame, profile, STATE["critical"]) if profile else {}
     return {
         "model_version": bundle["metadata"].get("version"),
         "n_transactions": int(len(result)),

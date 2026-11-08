@@ -1,0 +1,407 @@
+{
+  "baseline_test": {
+    "n": 56746,
+    "n_frauds": 95,
+    "tp": 72,
+    "tn": 56618,
+    "fp": 33,
+    "fn": 23,
+    "accuracy": 0.9990131463010609,
+    "precision": 0.6857142857142857,
+    "recall": 0.7578947368421053,
+    "f1": 0.7200000000000001,
+    "fpr": 0.0005825139891617095,
+    "fnr": 0.24210526315789474,
+    "roc_auc": 0.8924512876160499,
+    "pr_auc": 0.6948650404711706
+  },
+  "threshold": 0.14814814814814814,
+  "feature_importances": [
+    [
+      "V17",
+      0.7284171463331361
+    ],
+    [
+      "V10",
+      0.0968919847335414
+    ],
+    [
+      "V14",
+      0.0907882604247019
+    ],
+    [
+      "Time",
+      0.043762294220667616
+    ],
+    [
+      "V26",
+      0.03122491562514219
+    ],
+    [
+      "V4",
+      0.006194990210599294
+    ],
+    [
+      "V9",
+      0.001991600504458731
+    ],
+    [
+      "V7",
+      0.0007288079477526768
+    ],
+    [
+      "V1",
+      0.0
+    ],
+    [
+      "V2",
+      0.0
+    ]
+  ],
+  "missing_values": [
+    {
+      "scenario": "V1 manquante",
+      "rows_affected": 5608,
+      "frauds_affected": 10,
+      "recall_affected_before": 1.0,
+      "recall_affected_after": 1.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "alert": true,
+      "decision": "traiter (imputation) + alerte"
+    },
+    {
+      "scenario": "3 variables les plus importantes (V17, V10, V14)",
+      "rows_affected": 5608,
+      "frauds_affected": 10,
+      "recall_affected_before": 1.0,
+      "recall_affected_after": 0.0,
+      "d_recall": -0.10526315789473684,
+      "d_precision": -0.01904761904761909,
+      "d_fpr": -3.530387813101277e-05,
+      "alert": true,
+      "decision": "traiter (imputation) + alerte"
+    },
+    {
+      "scenario": "V1 à V28 manquantes",
+      "rows_affected": 5608,
+      "frauds_affected": 10,
+      "recall_affected_before": 1.0,
+      "recall_affected_after": 0.0,
+      "d_recall": -0.10526315789473684,
+      "d_precision": -0.01904761904761909,
+      "d_fpr": -3.530387813101277e-05,
+      "alert": true,
+      "decision": "traiter (imputation) + alerte"
+    },
+    {
+      "scenario": "Amount manquant",
+      "rows_affected": 5608,
+      "frauds_affected": 10,
+      "recall_affected_before": 1.0,
+      "recall_affected_after": 1.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "alert": true,
+      "decision": "traiter (imputation) + alerte"
+    }
+  ],
+  "infinite_and_non_numeric": {
+    "inf_treated_as_missing": true,
+    "non_numeric_batch_rejected": true,
+    "decision": "infini : traiter comme manquant + alerte ; non numérique : rejeter"
+  },
+  "extreme_amounts": [
+    {
+      "scenario": "Amount x 10",
+      "valid_probabilities": true,
+      "flip_rate": 0.0,
+      "alert_rate": 0.0024495118598667747,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "decision": "traiter + alerte montant_hors_domaine"
+    },
+    {
+      "scenario": "Amount x 100",
+      "valid_probabilities": true,
+      "flip_rate": 0.0,
+      "alert_rate": 0.10552285623656293,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "decision": "traiter + alerte montant_hors_domaine"
+    },
+    {
+      "scenario": "Amount = 1 000 000",
+      "valid_probabilities": true,
+      "flip_rate": 0.0,
+      "alert_rate": 1.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "decision": "traiter + alerte montant_hors_domaine"
+    },
+    {
+      "scenario": "Amount = 1e12",
+      "valid_probabilities": true,
+      "flip_rate": 0.0,
+      "alert_rate": 1.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0,
+      "decision": "traiter + alerte montant_hors_domaine"
+    }
+  ],
+  "pca_noise": [
+    {
+      "level": 0.01,
+      "mean_abs_delta": 1.1155418574334026e-05,
+      "flip_rate": 0.0,
+      "flip_rate_frauds": 0.0,
+      "flip_rate_near_threshold": 0.0,
+      "recall": 0.7578947368421053,
+      "precision": 0.6857142857142857,
+      "fpr": 0.0005825139891617095
+    },
+    {
+      "level": 0.05,
+      "mean_abs_delta": 4.6114061142531446e-05,
+      "flip_rate": 3.524477496211186e-05,
+      "flip_rate_frauds": 0.0,
+      "flip_rate_near_threshold": 0.014285714285714285,
+      "recall": 0.7578947368421053,
+      "precision": 0.6806600253329226,
+      "fpr": 0.0005966355404141145
+    },
+    {
+      "level": 0.1,
+      "mean_abs_delta": 7.37792555120174e-05,
+      "flip_rate": 6.344059493180135e-05,
+      "flip_rate_frauds": 0.002105263157894737,
+      "flip_rate_near_threshold": 0.023809523809523808,
+      "recall": 0.7557894736842106,
+      "precision": 0.6762133405192653,
+      "fpr": 0.0006072267038534182
+    },
+    {
+      "level": 0.25,
+      "mean_abs_delta": 0.0001746482536860965,
+      "flip_rate": 0.00013745462235223628,
+      "flip_rate_frauds": 0.016842105263157894,
+      "flip_rate_near_threshold": 0.02857142857142857,
+      "recall": 0.7621052631578947,
+      "precision": 0.6655176159053604,
+      "fpr": 0.000642530581984431
+    },
+    {
+      "level": 0.5,
+      "mean_abs_delta": 0.0004028768146530531,
+      "flip_rate": 0.00036302118210975224,
+      "flip_rate_frauds": 0.02947368421052632,
+      "flip_rate_near_threshold": 0.04285714285714286,
+      "recall": 0.7705263157894737,
+      "precision": 0.6105314195516035,
+      "fpr": 0.000826110748265697
+    }
+  ],
+  "other_perturbations": [
+    {
+      "scenario": "Amount +/- 1 % (multiplicatif)",
+      "mean_abs_delta": 0.0,
+      "flip_rate": 0.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0
+    },
+    {
+      "scenario": "Amount +/- 5 % (multiplicatif)",
+      "mean_abs_delta": 0.0,
+      "flip_rate": 0.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0
+    },
+    {
+      "scenario": "Time +/- 60 s",
+      "mean_abs_delta": 0.0,
+      "flip_rate": 0.0,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0
+    },
+    {
+      "scenario": "Time +/- 1 h",
+      "mean_abs_delta": 2.64335812215839e-06,
+      "flip_rate": 1.7622387481055934e-05,
+      "d_recall": 0.0,
+      "d_precision": -0.006469002695417836,
+      "d_fpr": 1.7651939065506275e-05
+    }
+  ],
+  "distribution_shift": [
+    {
+      "scenario": "Jeu de test sans modification (contrôle)",
+      "drift_status": "stable",
+      "top_features": [
+        "V16",
+        "V14",
+        "V11"
+      ],
+      "max_psi": 0.000468,
+      "flag_rate": 0.001850350685510873,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0
+    },
+    {
+      "scenario": "Montants x 3 (inflation, nouveau commerce)",
+      "drift_status": "alerte",
+      "top_features": [
+        "Amount",
+        "V16",
+        "V14"
+      ],
+      "max_psi": 0.410252,
+      "flag_rate": 0.001850350685510873,
+      "d_recall": 0.0,
+      "d_precision": 0.0,
+      "d_fpr": 0.0
+    },
+    {
+      "scenario": "Décalage +0,5 écart-type sur V17, V10, V14",
+      "drift_status": "alerte",
+      "top_features": [
+        "V10",
+        "V17",
+        "V14"
+      ],
+      "max_psi": 0.520979,
+      "flag_rate": 0.0016212596482571458,
+      "d_recall": -0.03157894736842104,
+      "d_precision": 0.06428571428571428,
+      "d_fpr": -0.0001765193906550635
+    },
+    {
+      "scenario": "Échelle x 1,5 sur V1 à V28",
+      "drift_status": "alerte",
+      "top_features": [
+        "V1",
+        "V22",
+        "V24"
+      ],
+      "max_psi": 0.480746,
+      "flag_rate": 0.006960843055017094,
+      "d_recall": 0.04210526315789476,
+      "d_precision": -0.49330922242314645,
+      "d_fpr": 0.005048454572734814
+    }
+  ],
+  "prevalence_shift": {
+    "fraud_rate": 0.008314952911108777,
+    "recall": 0.7578947368421053,
+    "precision": 0.916030534351145,
+    "fpr": 0.0005825139891617095
+  },
+  "temporal_validation": {
+    "periods_seconds": {
+      "train": "[0, 100000[",
+      "val": "[100000, 130000[",
+      "test": "[130000, 172792]"
+    },
+    "sizes": {
+      "train": 153165,
+      "val": 39252,
+      "test": 91309
+    },
+    "frauds": {
+      "train": 312,
+      "val": 51,
+      "test": 110
+    },
+    "threshold": 0.3225806451612903,
+    "test": {
+      "recall": 0.7272727272727273,
+      "precision": 0.7079646017699115,
+      "fpr": 0.00036184607287360605,
+      "pr_auc": 0.6728869188717087,
+      "tp": 80,
+      "fp": 33,
+      "fn": 30
+    }
+  },
+  "cross_validation_fixed_threshold": [
+    {
+      "fold": 1,
+      "frauds": 75,
+      "recall": 0.7866666666666666,
+      "precision": 0.7283950617283951,
+      "fpr": 0.0004854261821230776,
+      "pr_auc": 0.7688673697717103
+    },
+    {
+      "fold": 2,
+      "frauds": 75,
+      "recall": 0.7466666666666667,
+      "precision": 0.8484848484848485,
+      "fpr": 0.00022064826460139892,
+      "pr_auc": 0.7355440339390034
+    },
+    {
+      "fold": 3,
+      "frauds": 76,
+      "recall": 0.8552631578947368,
+      "precision": 0.7222222222222222,
+      "fpr": 0.0005516328331862312,
+      "pr_auc": 0.8010173142148556
+    },
+    {
+      "fold": 4,
+      "frauds": 76,
+      "recall": 0.8421052631578947,
+      "precision": 0.735632183908046,
+      "fpr": 0.0005075022065313328,
+      "pr_auc": 0.8042401569634319
+    },
+    {
+      "fold": 5,
+      "frauds": 76,
+      "recall": 0.7763157894736842,
+      "precision": 0.6941176470588235,
+      "fpr": 0.0005736981465136805,
+      "pr_auc": 0.765320914785917
+    }
+  ],
+  "invalid_schema": [
+    {
+      "scenario": "colonne Amount absente",
+      "outcome": "rejeté : Colonnes obligatoires absentes : ['Amount']."
+    },
+    {
+      "scenario": "colonne V1 renommée v1",
+      "outcome": "rejeté : Colonnes obligatoires absentes : ['V1']."
+    },
+    {
+      "scenario": "colonne V2 dupliquée",
+      "outcome": "rejeté : Colonnes dupliquées : ['V2']."
+    },
+    {
+      "scenario": "V5 de type texte",
+      "outcome": "rejeté : Type incorrect (numérique attendu) : ['V5']."
+    },
+    {
+      "scenario": "lot vide",
+      "outcome": "rejeté : Le jeu de données est vide."
+    },
+    {
+      "scenario": "montant négatif",
+      "outcome": "rejeté : Valeurs négatives interdites dans « Amount »."
+    },
+    {
+      "scenario": "colonne supplémentaire (card_id)",
+      "outcome": "accepté (colonne ignorée et journalisée)"
+    }
+  ]
+}

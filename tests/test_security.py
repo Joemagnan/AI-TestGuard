@@ -17,7 +17,9 @@ SECRET_PATTERNS = {
     "jeton Slack": r"xox[baprs]-" + r"[A-Za-z0-9-]{10,}",
     "clé Kaggle": r"\"key\"\s*:\s*\"[0-9a-f]{32}\"",
     "mot de passe en clair": r"(?i)(password|passwd|mot_de_passe)\s*[=:]\s*['\"][^'\"]{4,}['\"]",
-    "numéro de carte": r"\b4[0-9]{3}([ -]?[0-9]{4}){3}\b",
+    # 16 chiffres commençant par 4, non précédés d'un point ou d'un chiffre : exclut
+    # les décimales des flottants (par exemple 0.4216119381140392)
+    "numéro de carte": r"(?<![\d.])4[0-9]{3}([ -]?[0-9]{4}){3}(?![\d.])",
 }
 TEXT_SUFFIXES = {".py", ".md", ".yml", ".yaml", ".toml", ".txt", ".json", ".cfg", ".ini", ""}
 
@@ -30,6 +32,12 @@ def tracked_files():
     except (OSError, subprocess.SubprocessError):
         pytest.skip("dépôt Git indisponible")
     return [ROOT / name for name in out if (ROOT / name).is_file()]
+
+
+def test_card_pattern_ignores_float_decimals():
+    pattern = SECRET_PATTERNS["numéro de carte"]
+    assert re.search(pattern, "carte 4970 1000 0000 0000")
+    assert not re.search(pattern, '"threshold": 0.4216119381140392')
 
 
 def test_no_secret_in_tracked_files():

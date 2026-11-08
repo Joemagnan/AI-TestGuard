@@ -1,0 +1,98 @@
+# Intégration continue AI-TestGuard (PARTIE IX)
+#
+#   push / pull request vers main  -> style (Ruff) + tests rapides + couverture
+#   manuel ou hebdomadaire          -> + ré-entraînement complet et non-régression
+#
+# Un échec de test, de style ou de couverture fait échouer le job : la pull
+# request est bloquée par la protection de la branche main.
+
+name: Tests AI-TestGuard
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * 1" # chaque lundi à 5 h UTC
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  lint:
+    name: Style (Ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - name: Installation de Ruff
+        run: pip install ruff==0.17.4
+      - name: Règles de style et erreurs
+        run: ruff check --output-format=github .
+      - name: Formatage
+        run: ruff format --check .
+
+  tests:
+    name: Tests rapides et couverture
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Installation
+        run: pip install -r requirements.txt
+      - name: Tests (hors tests longs) et couverture
+        run: >
+          pytest -m "not slow"
+          --cov=app --cov-report=term-missing --cov-report=xml --cov-report=html
+          --cov-fail-under=90
+          --junitxml=reports/tests/junit.xml
+      - name: Synthèse dans le résumé de l'exécution
+        if: always()
+        run: python scripts/ci_summary.py reports/tests/junit.xml coverage.xml >> "$GITHUB_STEP_SUMMARY"
+      - name: Archivage des preuves (JUnit, couverture)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: preuves-tests
+          path: |
+            reports/tests/junit.xml
+            coverage.xml
+            htmlcov/
+          if-no-files-found: ignore
+
+  full-training:
+    name: Ré-entraînement complet et non-régression
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule'
+    needs: [lint, tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - name: Installation
+        run: pip install -r requirements.txt
+      - name: Récupération du jeu complet (miroir public OpenML du jeu ULB)
+        run: python scripts/fetch_openml.py
+      - name: Ré-entraînement et comparaison à la référence figée
+        run: pytest -m slow -v --junitxml=reports/tests/junit-slow.xml
+      - name: Synthèse
+        if: always()
+        run: python scripts/ci_summary.py reports/tests/junit-slow.xml >> "$GITHUB_STEP_SUMMARY"

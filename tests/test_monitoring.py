@@ -4,14 +4,17 @@ import numpy as np
 import pandas as pd
 import pytest
 
+from app.config import FEATURES
 from app.monitoring import (
     build_reference_profile,
+    critical_features,
     drift_report,
     flag_rate_status,
     population_stability_index,
     transaction_alerts,
 )
 from app.preprocessing import preprocess_data
+from app.training import train_model
 from tests.factories import make_transactions
 
 
@@ -83,3 +86,33 @@ def test_transaction_alerts(reference):
 )
 def test_flag_rate_status(flagged, status):
     assert flag_rate_status(flagged, 10_000, expected_rate=0.001)["status"] == status
+
+
+def test_critical_features_follow_model_weights(sample_bundle):
+    critical = critical_features(sample_bundle["pipeline"])
+    assert len(critical) == 3
+    assert all(name in FEATURES for name in critical)
+
+
+def test_critical_features_for_linear_model_and_unknown_model():
+    X, y = preprocess_data(make_transactions(n=300, n_frauds=30))
+    linear = train_model(X, y, "logistic_regression")
+    assert critical_features(linear, k=1) == ["V14"]  # seule variable porteuse du signal
+
+    class Opaque:
+        pass
+
+    linear.steps[-1] = ("model", Opaque())
+    assert critical_features(linear) == []
+
+
+def test_missing_critical_feature_requires_manual_review(reference):
+    _, profile = reference
+    rows = pd.DataFrame(
+        {"Time": [10.0, 10.0], **{f"V{i}": [0.0, 0.0] for i in range(1, 29)}, "Amount": [5.0, 5.0]}
+    )
+    rows.loc[0, "V14"] = np.nan
+    rows.loc[1, "V2"] = np.nan
+    alerts = transaction_alerts(rows, profile, critical=["V14", "V17"])
+    assert alerts[0] == ["variable_critique_manquante", "valeurs_manquantes"]
+    assert alerts[1] == ["valeurs_manquantes"]

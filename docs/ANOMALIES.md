@@ -1,0 +1,20 @@
+# Registre des anomalies
+
+Gravité : **critique** (risque direct de fraude non détectée ou de service indisponible),
+**majeure** (exigence non tenue ou preuve insuffisante), **moyenne**, **mineure**.
+
+| ID | Constat | Gravité | Détection | Statut | Action |
+|---|---|---|---|---|---|
+| A01 | Une valeur `NaN` dans le JSON envoyé à `/predict` provoquait une erreur 500 au lieu d'un rejet 422 : FastAPI recopiait la valeur dans la réponse d'erreur, qui devenait non sérialisable. | majeure | `test_non_finite_values_are_rejected` | **corrigée** | gestionnaire d'erreur 422 qui ne renvoie plus les valeurs reçues (évite aussi de les exposer) |
+| A02 | Si les 3 variables critiques (V17, V10, V14) manquent, l'imputation par la médiane rend la transaction « normale » : rappel des fraudes touchées 1,00 -> 0,00. | critique | `run_robustness.py`, scénario 1 | **atténuée** | alerte `variable_critique_manquante` (revue manuelle) ; décider avec le métier entre rejet et revue obligatoire |
+| A03 | `Time` (secondes depuis le début du jeu) est utilisée par le modèle (importance 4,4 %) mais n'a pas de sens en production : toute transaction future sera hors domaine. | majeure | importances, alerte `temps_hors_domaine` | **correctif proposé** | version 1.1.0-a (heure de la journée) acceptée par la non-régression ; à requalifier sur un nouveau jeu de test |
+| A04 | Validation temporelle (entraînement sur le passé, test sur le futur) : rappel 0,727, sous le critère de 0,75. | majeure | `run_robustness.py`, validation temporelle | ouverte | pilote sur données récentes avant toute généralisation |
+| A05 | Rappel de test 0,758 juste au-dessus du critère, avec un intervalle de confiance à 95 % de [0,674 ; 0,842] (95 fraudes seulement). | majeure | bootstrap stratifié | ouverte | plus de données étiquetées pour conclure statistiquement |
+| A06 | L'API en un seul processus sature vers 125 requêtes/s, sous l'exigence de 165/s. | majeure | `run_performance.py` | **corrigée par configuration** | 4 processus : 338 requêtes/s, P95 de 18 ms à 165 requêtes/s imposées |
+| A07 | Une requête isolée sur 3 300 a pris 10 s (4 processus, charge imposée). | mineure | `run_performance.py` | à investiguer | non reproduite ; probable blocage réseau local ; à surveiller en pilote (P99, max) |
+| A08 | Le contrôle de non-régression de la CI, calculé sur l'échantillon, ne détecte pas un changement de la règle de coût (25 -> 1) : le seuil de l'échantillon ne bouge pas. | moyenne | expérience volontaire | **atténuée** | la comparaison complète (job manuel, `compare_versions.py`) le détecte : version 1.1.0-d rejetée |
+| A09 | Par tranches horaires de 8 h, la surveillance déclenche de fausses alertes de dérive (cycle jour/nuit sur Time et V1). | moyenne | `simulate_monitoring.py` | ouverte | comparer des fenêtres de 24 h (ou la même tranche horaire) et exclure Time du calcul |
+| A10 | Écart validation -> test : PR-AUC 0,849 -> 0,695, rappel 0,883 -> 0,758 ; variabilité entre plis 0,747 à 0,855. | moyenne | `EVALUATION_ML.md`, validation croisée | documentée | la validation, utilisée pour choisir modèle et seuil, est optimiste |
+| A11 | La dérive de concept (fraudeurs qui s'adaptent) est invisible sans labels : seule une baisse du taux signalé (x 0,43) l'annonce ; rappel 0 dans la simulation. | majeure (limite) | `simulate_monitoring.py`, fenêtre 6 | documentée | suivre le taux signalé, accélérer le retour des labels (contestations) |
+| A12 | Les fraudes de 100 EUR et plus, les plus coûteuses, sont les moins bien détectées (rappel 0,65 contre 1,00 entre 10 et 100 EUR) ; leurs clients légitimes ont aussi plus de fausses alertes. | majeure | `run_bias_audit.py` | ouverte | coût FN proportionnel au montant dans la règle de seuil (prochaine version) |
+| A13 | Le scanner de secrets signalait des décimales de flottants (`0.4216...`) comme numéros de carte. | mineure | `test_no_secret_in_tracked_files` | **corrigée** | motif affiné et test dédié |

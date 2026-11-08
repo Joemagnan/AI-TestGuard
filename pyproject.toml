@@ -13,6 +13,10 @@ extend-exclude = ["notebooks"]
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "B", "UP"]
 
+[tool.ruff.lint.per-file-ignores]
+# scripts de génération de rapports : longues chaînes formatées
+"scripts/*" = ["E501"]
+
 [tool.ruff.lint.flake8-bugbear]
 # idiome FastAPI : File(...) dans la signature déclare le paramètre de requête
 extend-immutable-calls = ["fastapi.File"]
