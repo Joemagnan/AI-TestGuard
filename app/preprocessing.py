@@ -123,7 +123,7 @@ def clean_features(X) -> pd.DataFrame:
         frame = frame.astype("float64")
     except (TypeError, ValueError) as exc:
         raise DataValidationError(f"Conversion numérique impossible : {exc}") from exc
-    return frame.replace([np.inf, -np.inf], np.nan)
+    return frame  # régression volontaire : les infinis ne sont plus remplacés
 
 
 def preprocess_data(
